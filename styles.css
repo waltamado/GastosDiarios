@@ -1,0 +1,37 @@
+/* styles.css */
+
+/* General body styling */
+body {
+    margin: 0;
+    padding: 0;
+    height: 95vh; /* Altura del 95% */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    background: linear-gradient(to bottom, #00f, #8000ff); /* Fondo degradado de azul a violeta */
+    font-family: Arial, sans-serif; /* Fuente estándar */
+}
+
+/* Container styling */
+.container {
+    width: 95%; /* 95% de ancho */
+    height: 95%; /* 95% de alto */
+    border: 5px solid #8000ff; /* Borde violeta */
+    border-radius: 15px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    padding: 20px; /* Espaciado interno */
+    overflow-y: auto; /* Añade scroll si el contenido excede el tamaño */
+    box-sizing: border-box; /* Incluye el padding y el borde en las dimensiones totales */
+}
+
+/* Heading styles */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+p {
+    text-align: center;
+    color: #555;
+}
