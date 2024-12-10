@@ -3,10 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Mundo</title>
+    <title>Gastos Diarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .login-container h1 {
+            color: #333;
+        }
+        input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>¡Hola Mundo!</h1>
-    <p>Esta es mi primera página web.</p>
+    <div class="login-container">
+        <h1>Gastos Diarios</h1>
+        <p>Por favor, ingresa la contraseña para continuar.</p>
+        <form id="loginForm">
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <br>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <p id="error" style="color: red; display: none;">Contraseña incorrecta, intenta nuevamente.</p>
+    </div>
+
+    <script>
+        const correctPassword = "tuContraseñaSegura"; // Cambia esta contraseña por la que prefieras
+        const form = document.getElementById("loginForm");
+        const errorMessage = document.getElementById("error");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const password = document.getElementById("password").value;
+
+            if (password === correctPassword) {
+                window.location.href = "app.html"; // Redirige a la página de la app
+            } else {
+                errorMessage.style.display = "block"; // Muestra el mensaje de error
+            }
+        });
+    </script>
 </body>
 </html>
