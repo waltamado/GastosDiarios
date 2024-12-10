@@ -3,13 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a Gastos Diarios</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Vincula el archivo CSS -->
+    <title>Gastos Diarios</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Vincula el CSS -->
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content h2 {
+            margin: 0 0 15px;
+        }
+        .modal-content label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .modal-content input,
+        .modal-content textarea,
+        .modal-content select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .modal-content button {
+            padding: 10px;
+            border: none;
+            background: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal-content button:hover {
+            background: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>¡Bienvenido a Gastos Diarios!</h1>
-        <p>Ahora puedes empezar a registrar tus gastos e ingresos.</p>
+        <h1>Gastos Diarios</h1>
+        <button id="openFormButton">Ingresos</button>
     </div>
+
+    <!-- Modal -->
+    <div class="modal" id="formModal">
+        <div class="modal-content">
+            <h2>Agregar Registro</h2>
+            <form id="dataForm">
+                <label for="fechaInicio">Fecha Inicio:</label>
+                <input type="date" id="fechaInicio" required>
+
+                <label for="fechaFin">Fecha Fin:</label>
+                <input type="date" id="fechaFin" required>
+
+                <label for="monto">Monto:</label>
+                <input type="number" id="monto" step="0.01" required>
+
+                <label for="cuenta">Cuenta:</label>
+                <input type="text" id="cuenta" required>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" rows="3"></textarea>
+
+                <label for="estado">Estado:</label>
+                <select id="estado">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="completado">Completado</option>
+                </select>
+
+                <button type="submit">Guardar</button>
+                <button type="button" id="closeFormButton">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar y ocultar el modal
+        const openFormButton = document.getElementById("openFormButton");
+        const closeFormButton = document.getElementById("closeFormButton");
+        const modal = document.getElementById("formModal");
+
+        openFormButton.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+
+        closeFormButton.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // Manejar el formulario
+        document.getElementById("dataForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Capturar datos del formulario
+            const data = {
+                fechaInicio: document.getElementById("fechaInicio").value,
+                fechaFin: document.getElementById("fechaFin").value,
+                monto: parseFloat(document.getElementById("monto").value),
+                cuenta: document.getElementById("cuenta").value,
+                descripcion: document.getElementById("descripcion").value,
+                estado: document.getElementById("estado").value,
+            };
+
+            // Llamar al script de Google Apps Script (requiere configuración)
+            fetch('https://script.google.com/macros/library/d/15GPPOZJIosE3cPm2P7-pBwCJHv2EgBLr1B62iuAwh8yvqw4kxTOZkt6f/7', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert("Registro guardado con éxito.");
+                modal.style.display = "none";
+            })
+            .catch(error => {
+                console.error("Error al guardar:", error);
+                alert("Hubo un problema al guardar el registro.");
+            });
+        });
+    </script>
 </body>
 </html>
